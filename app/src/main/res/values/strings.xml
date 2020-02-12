@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SteamMarketManager</string>
+    <string name="button_name">Make request</string>
+    <string name="main_activity_name">STEAM</string>
+    <string name="result_activity_name">Results</string>
+    <string name="hint_success">Success</string>
+    <string name="hint_lowest_price">Lowest price</string>
+    <string name="hint_volume">Volume</string>
+    <string name="hint_median_price">Median price</string>
+    <string name="currency">Currency</string>
+    <string name="getURLButton_name">Get URL</string>
+    <string name="hint_url">generate new url</string>
+    <string name="hint_time">time</string>
+</resources>
