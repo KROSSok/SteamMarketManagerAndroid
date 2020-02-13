@@ -44,9 +44,6 @@ public class MarketItem implements Serializable {
         this.time = (new SimpleDateFormat("yyyy/MM/dd '-' HH:mm:ss.sss z")).format(System.currentTimeMillis());
         this.currency = currency;
     }
-    public MarketItem(){
-
-    }
 
     @Override
     public String toString() {

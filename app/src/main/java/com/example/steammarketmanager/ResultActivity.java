@@ -14,26 +14,29 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("RESULTS");
         setContentView(R.layout.activity_result);
+            MarketItem marketItem = (MarketItem)getIntent().getSerializableExtra("item");
+            if(marketItem != null) {
+                TextView successItem = findViewById(R.id.success);
+                successItem.setText(marketItem.getSuccess().toString());
 
-        MarketItem marketItem = (MarketItem)getIntent().getSerializableExtra("item");
+                TextView lowestPriceItem = findViewById(R.id.lowestPrice);
+                lowestPriceItem.setText(marketItem.getLowest_price().toString());
 
-        TextView successItem = findViewById(R.id.success);
-        successItem.setText(marketItem.getSuccess().toString());
+                TextView volumeItem = findViewById(R.id.volume);
+                volumeItem.setText("" + marketItem.getVolume());
 
-        TextView lowestPriceItem = findViewById(R.id.lowestPrice);
-        lowestPriceItem.setText(marketItem.getLowest_price().toString());
+                TextView medianPriceItem = findViewById(R.id.medianPrice);
+                medianPriceItem.setText(marketItem.getMedian_price().toString());
 
-        TextView volumeItem = findViewById(R.id.volume);
-        volumeItem.setText(""+marketItem.getVolume());
+                TextView currencyItem = findViewById(R.id.currency);
+                currencyItem.setText(marketItem.getCurrency());
 
-        TextView medianPriceItem = findViewById(R.id.medianPrice);
-        medianPriceItem.setText(marketItem.getMedian_price().toString());
-
-        TextView currencyItem = findViewById(R.id.currency);
-        currencyItem.setText(marketItem.getCurrency());
-
-        TextView timeItem = findViewById(R.id.time);
-        timeItem.setText(marketItem.getTime());
-
+                TextView timeItem = findViewById(R.id.time);
+                timeItem.setText(marketItem.getTime());
+            } else {
+                TextView dataException = findViewById(R.id.dataException);
+                dataException.setText("no data to show");
+            }
+        }
     }
-}
+

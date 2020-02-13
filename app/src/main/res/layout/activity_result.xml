@@ -8,6 +8,16 @@
     android:gravity="center">
 
         <TextView
+            android:id="@+id/dataException"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medianPrice"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:background="@drawable/market_item_background"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <TextView
             android:id="@+id/success"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
