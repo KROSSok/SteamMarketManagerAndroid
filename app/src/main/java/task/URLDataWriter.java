@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.example.steammarketmanager.MainActivity;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,12 +21,13 @@ public class URLDataWriter extends AsyncTask<String, Void, String> {
         super.onProgressUpdate(values);
         MainActivity.progressBar.setVisibility(ProgressBar.VISIBLE);
         MainActivity.tvProgress.setVisibility(TextView.VISIBLE);
+        MainActivity.tvProgress.setText(50+"%");
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            MainActivity.tvProgress.setText(50+"%");
+            MainActivity.tvProgress.setText(100+"%");
         }
 
     @Override
