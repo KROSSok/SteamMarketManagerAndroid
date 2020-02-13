@@ -72,5 +72,4 @@
             android:background="@drawable/market_item_background"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-
 </androidx.appcompat.widget.LinearLayoutCompat>

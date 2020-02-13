@@ -1,8 +1,9 @@
 package task;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
-public class MarketItem {
+public class MarketItem implements Serializable {
 
     private Boolean success;
     private Double lowest_price;
@@ -35,7 +36,7 @@ public class MarketItem {
         return currency;
     }
 
-    public MarketItem(Boolean success, Double lowest_price, int volume, Double median_price, String currency) {
+    public MarketItem (Boolean success, Double lowest_price, int volume, Double median_price, String currency) {
         this.success = success;
         this.lowest_price = lowest_price;
         this.median_price = median_price;

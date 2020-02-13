@@ -51,7 +51,7 @@ public class JsonDataParser {
 
         String currency = (String) jParser.get("lowest_price");
         String[] arrOfPrice = currency.split("");
-        currency = (arrOfPrice[currency.length()-1]);
+        currency = (arrOfPrice[currency.length()]);
 
         try {
             lowest_price = (new DecimalFormat("##,###.###"+currency)).parse((String) jParser.get("lowest_price")).doubleValue();

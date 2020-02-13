@@ -11,4 +11,8 @@
     <string name="getURLButton_name">Get URL</string>
     <string name="hint_url">generate new url</string>
     <string name="hint_time">time</string>
+    <string name="make_req_pr_bar">makeRequestProgressBar</string>
+    <string name="hint_progress">0%</string>
+    <string name="hint_item_data">Item Data</string>
+    <string name="hint_item_url">Item Url</string>
 </resources>
