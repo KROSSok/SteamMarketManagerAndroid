@@ -40,8 +40,7 @@ public class ResultActivity extends AppCompatActivity {
                 TextView dataException = findViewById(R.id.dataException);
                 dataException.setText("no data to show");
             }
-
-            reverseTimer(5, getIntent().getBooleanExtra("result", false));
+            reverseTimer(13, getIntent().getBooleanExtra("result", false));
         }
 
         TextView timer;
@@ -67,8 +66,7 @@ public class ResultActivity extends AppCompatActivity {
                     int seconds = (int) (millisUntilFinished / 1000);
                     int minutes = seconds / 60;
                     seconds = seconds % 60;
-                    timer.setText("TIME : " + String.format("%02d", minutes)
-                            + ":" + String.format("%02d", seconds));
+                    timer.setText("TIME : " + String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
                 } else {
                     cancel();
                 }

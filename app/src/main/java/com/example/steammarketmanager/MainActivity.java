@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -28,15 +29,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setTitle("STEAM");
         setContentView(R.layout.activity_main);
 
-        final JsonDataParser jsonDataParser = new JsonDataParser(MainActivity.this);
-        final String urlFromJson = jsonDataParser.getStringObject("url");
+        makeTimerRequestButton = findViewById(R.id.makeTimerRequestButton);
+        makeTimerRequestButton.setOnClickListener(this);
 
         Button getURLButton = findViewById(R.id.getURLButton);
         getURLButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView url = findViewById(R.id.url);
-                url.setText(urlFromJson);
+                JsonDataParser jsonDataParser = new JsonDataParser(MainActivity.this);
+                url.setText(jsonDataParser.getStringObject("url"));
             }
         });
 
@@ -44,42 +46,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         makeRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MarketItem steamItem;
-                URLDataWriter urlDataWriter = new URLDataWriter();
-                try {
-                    steamItem = JsonDataParser.getDataByKey(urlDataWriter.execute(jsonDataParser.getStringObject("url")).get());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    steamItem = null;
-                }
                 Intent intent = new Intent(v.getContext(), ResultActivity.class );
-                intent.putExtra("item", steamItem);
+                intent.putExtra("item", getMarketItemData());
                 v.getContext().startActivity(intent);
             }
         });
-
-        makeTimerRequestButton = findViewById(R.id.makeTimerRequestButton);
-        makeTimerRequestButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-
-        MarketItem steamItem;
-        final JsonDataParser jsonDataParser = new JsonDataParser(MainActivity.this);
-        URLDataWriter urlDataWriter = new URLDataWriter();
-        try {
-            steamItem = JsonDataParser.getDataByKey(urlDataWriter.execute(jsonDataParser.getStringObject("url")).get());
-        } catch (Exception e) {
-            e.printStackTrace();
-            steamItem = null;
-        }
         Intent intent = new Intent(v.getContext(), ResultActivity.class);
-        intent.putExtra("item", steamItem);
+        intent.putExtra("item", getMarketItemData());
         intent.putExtra("result", true);
         startActivityForResult(intent, 1);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -89,8 +69,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         Boolean result = data.getBooleanExtra("result", false);
         if (result) {
-                makeTimerRequestButton.callOnClick();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    makeTimerRequestButton.callOnClick();
+                }
+            }, 300);
         } else return;
+    }
+
+    public MarketItem getMarketItemData(){
+        MarketItem steamItem;
+        JsonDataParser jsonDataParser = new JsonDataParser(MainActivity.this);
+        URLDataWriter urlDataWriter = new URLDataWriter();
+        try {
+            steamItem = JsonDataParser.getDataByKey(urlDataWriter.execute(jsonDataParser.getStringObject("url")).get());
+        } catch (Exception e) {
+            e.printStackTrace();
+            steamItem = null;
+        }
+        return steamItem;
     }
 
     public class URLDataWriter extends AsyncTask<String, Void, String> {
@@ -121,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
             progressBar.setVisibility(ProgressBar.VISIBLE);
             tvProgress.setVisibility(TextView.VISIBLE);
             tvProgress.setText(50+"%");

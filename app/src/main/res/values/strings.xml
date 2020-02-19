@@ -16,4 +16,6 @@
     <string name="hint_item_data">Item Data</string>
     <string name="hint_item_url">Item Url</string>
     <string name="make_time_request_name">Make timer request</string>
+    <string name="button_cancel_name">CANCEL TIMER</string>
+    <string name="hint_timer">timer progress</string>
 </resources>
