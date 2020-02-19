@@ -15,4 +15,5 @@
     <string name="hint_progress">0%</string>
     <string name="hint_item_data">Item Data</string>
     <string name="hint_item_url">Item Url</string>
+    <string name="make_time_request_name">Make timer request</string>
 </resources>

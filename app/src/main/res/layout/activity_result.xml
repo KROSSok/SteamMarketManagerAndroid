@@ -82,4 +82,25 @@
             android:background="@drawable/market_item_background"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
+        <TextView
+            android:id="@+id/timerProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medianPrice"
+            android:hint="timer progress"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="50dp"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/cancelTimerButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cool_button_background"
+            android:text="CANCEL TIMER"
+            android:textColor="#616161"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

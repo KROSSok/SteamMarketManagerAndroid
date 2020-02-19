@@ -18,7 +18,9 @@ import java.util.concurrent.TimeUnit;
 import task.JsonDataParser;
 import task.MarketItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    Button makeTimerRequestButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -42,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         makeRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ResultActivity.class );
                 MarketItem steamItem;
                 URLDataWriter urlDataWriter = new URLDataWriter();
                 try {
@@ -51,13 +52,48 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                     steamItem = null;
                 }
+                Intent intent = new Intent(v.getContext(), ResultActivity.class );
                 intent.putExtra("item", steamItem);
                 v.getContext().startActivity(intent);
             }
         });
+
+        makeTimerRequestButton = findViewById(R.id.makeTimerRequestButton);
+        makeTimerRequestButton.setOnClickListener(this);
     }
 
-    class URLDataWriter extends AsyncTask<String, Void, String> {
+    @Override
+    public void onClick(View v) {
+
+        MarketItem steamItem;
+        final JsonDataParser jsonDataParser = new JsonDataParser(MainActivity.this);
+        URLDataWriter urlDataWriter = new URLDataWriter();
+        try {
+            steamItem = JsonDataParser.getDataByKey(urlDataWriter.execute(jsonDataParser.getStringObject("url")).get());
+        } catch (Exception e) {
+            e.printStackTrace();
+            steamItem = null;
+        }
+        Intent intent = new Intent(v.getContext(), ResultActivity.class);
+        intent.putExtra("item", steamItem);
+        intent.putExtra("result", true);
+        startActivityForResult(intent, 1);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        Boolean result = data.getBooleanExtra("result", false);
+        if (result) {
+                makeTimerRequestButton.callOnClick();
+        } else return;
+    }
+
+    public class URLDataWriter extends AsyncTask<String, Void, String> {
 
         ProgressBar progressBar = findViewById(R.id.makeRequestProgressBar);
         TextView tvProgress = findViewById(R.id.tv_makeRequestProgressBar);

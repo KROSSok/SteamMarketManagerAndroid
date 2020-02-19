@@ -1,13 +1,16 @@
 package com.example.steammarketmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
 import task.MarketItem;
 
 public class ResultActivity extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,47 @@ public class ResultActivity extends AppCompatActivity {
                 TextView dataException = findViewById(R.id.dataException);
                 dataException.setText("no data to show");
             }
+
+            reverseTimer(5, getIntent().getBooleanExtra("result", false));
         }
+
+        TextView timer;
+        Button cancelButton;
+
+        public void reverseTimer (int Seconds, final Boolean isTimerRequest){
+
+        new CountDownTimer(Seconds * 1000 + 1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                if (isTimerRequest) {
+                    timer = findViewById(R.id.timerProgress);
+                    timer.setVisibility(TextView.VISIBLE);
+                    cancelButton = findViewById(R.id.cancelTimerButton);
+                    cancelButton.setVisibility(Button.VISIBLE);
+                    cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            timer.setVisibility(TextView.INVISIBLE);
+                            cancel();
+                        }
+                    });
+                    int seconds = (int) (millisUntilFinished / 1000);
+                    int minutes = seconds / 60;
+                    seconds = seconds % 60;
+                    timer.setText("TIME : " + String.format("%02d", minutes)
+                            + ":" + String.format("%02d", seconds));
+                } else {
+                    cancel();
+                }
+            }
+            public void onFinish() {
+                Intent intent = new Intent();
+                intent.putExtra("result", true);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        }.start();
     }
+
+}
 
